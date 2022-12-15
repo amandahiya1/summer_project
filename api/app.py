@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 # from api.routes import route_user, route_avis, route_login
-# from database.models import Base
-# from database.session import engine
+from database.models.models import Base
+from database.session import engine
 
 
 def get_application() -> FastAPI:
@@ -20,6 +20,6 @@ def get_application() -> FastAPI:
     return application
 
 
-# Base.metadata.create_all(bind=engine, checkfirst=True)
+Base.metadata.create_all(bind=engine, checkfirst=True)
 
 app = get_application()
