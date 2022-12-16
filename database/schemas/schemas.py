@@ -5,13 +5,15 @@ from datetime import date
 class UserBase(BaseModel):
     name: str
     email : EmailStr
-    password: str
 
 class TeacherBase(UserBase):
     t_id: int
 
 class StudentBase(UserBase):
     s_id: int
+
+class CreateStudent(StudentBase):
+    password: str
 
 class SubjectBase(BaseModel):
     sub_id: int
