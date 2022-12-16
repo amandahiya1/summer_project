@@ -12,6 +12,9 @@ class TeacherBase(UserBase):
 class StudentBase(UserBase):
     s_id: int
 
+    class Config:
+        orm_mode = True
+
 class CreateStudent(UserBase):
     password: str
 
