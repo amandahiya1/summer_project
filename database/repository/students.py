@@ -1,13 +1,19 @@
 from sqlalchemy.orm import Session
-from schemas.schemas import StudentBase
+from schemas.schemas import StudentBase, CreateStudent
 from database.models.models import Students
 
 
-def create_new_student(student: StudentBase, db: Session, s_id: int):
-    student = Students(**student.dict(), s_id=s_id)
+def create_new_student(student: CreateStudent, db: Session, s_id: int):
+    student = Students(name = student.name,
+    email=student.email,
+    password=student.password)
     db.add(student)
     db.commit()
     db.refresh(student)
     return student
 
+
+def list_students(db:Session):
+    students = db.query(Students).all()
+    return students
     
