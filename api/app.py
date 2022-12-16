@@ -24,4 +24,4 @@ Base.metadata.create_all(bind=engine, checkfirst=True)
 
 app = get_application()
 
-app.include_router(routes_students)
+app.include_router(routes_students.router)
