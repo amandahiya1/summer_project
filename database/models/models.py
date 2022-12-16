@@ -23,7 +23,7 @@ class Teachers(Base):
 class Subjects(Base):
     __tablename__ = "subjects"
     sub_id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(30), nullable=False)
+    sub_name = Column(String(30), nullable=False)
     t_id = Column(Integer, ForeignKey('teachers.t_id', ondelete="CASCADE"))
 
 
