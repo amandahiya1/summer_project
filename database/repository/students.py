@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from schemas.schemas import StudentBase, CreateStudent
+from database.schemas.schemas import StudentBase, CreateStudent
 from database.models.models import Students
 
 
@@ -16,4 +16,3 @@ def create_new_student(student: CreateStudent, db: Session, s_id: int):
 def list_students(db:Session):
     students = db.query(Students).all()
     return students
-    
