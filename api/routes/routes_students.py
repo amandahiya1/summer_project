@@ -17,7 +17,7 @@ router = APIRouter(tags=["student"])
 
 @router.post('/create_student', response_model=StudentBase, status_code=status.HTTP_201_CREATED)
 def create_student(student: CreateStudent, db: Session = Depends(get_db)):
-    setudent = create_new_student(student=student, db=db)
+    student = create_new_student(student=student, db=db)
     return student
 
 @router.get('/all_students', response_model=List[StudentBase])
