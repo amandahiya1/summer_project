@@ -12,7 +12,7 @@ class TeacherBase(UserBase):
 class StudentBase(UserBase):
     s_id: int
 
-class CreateStudent(StudentBase):
+class CreateStudent(UserBase):
     password: str
 
 class SubjectBase(BaseModel):
