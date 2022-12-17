@@ -10,6 +10,7 @@ from database.repository.students import create_new_student, list_students, get_
 
 from database.models.models import Students
 
+from api.routes.route_login import get_current_user
 
 
 router = APIRouter(tags=["student"])
@@ -30,9 +31,9 @@ def get_all_students(db: Session = Depends(get_db)):
 
 
 @router.get('/student_by_id', response_model=StudentBase)
-def get_student(db: Session = Depends(get_db)):
-    student = get_student_by_id(s_id = 9, db=db)
+def get_student(db: Session = Depends(get_db), current_user: Students = Depends(get_current_user)):
+    student = get_student_by_id(s_id = current_user.s_id, db=db)
     if not student:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Student with id not exist")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Student with id:{current_user.s_id} not exist")
     return student
 
