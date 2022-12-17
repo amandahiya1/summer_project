@@ -2,11 +2,12 @@ from sqlalchemy.orm import Session
 from database.schemas.schemas import StudentBase, CreateStudent
 from database.models.models import Students
 
+from hasher.hasher import Hasher
 
 def create_new_student(student: CreateStudent, db: Session):
     student = Students(name = student.name,
     email=student.email,
-    password=student.password)
+    password=Hasher.hash_password(student.password))
     db.add(student)
     db.commit()
     db.refresh(student)
