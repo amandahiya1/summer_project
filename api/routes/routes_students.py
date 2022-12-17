@@ -6,7 +6,7 @@ from database.schemas.schemas import StudentBase, CreateStudent
 
 from database.session.session import get_db
 
-from database.repository.students import create_new_student, list_students
+from database.repository.students import create_new_student, list_students, get_student_by_id
 
 from database.models.models import Students
 
@@ -27,3 +27,12 @@ def get_all_students(db: Session = Depends(get_db)):
     for student in result:
         student_list.append({"name": student.name, "email": student.email, "s_id": student.s_id})
     return student_list
+
+
+@router.get('/student_by_id', response_model=StudentBase)
+def get_student(db: Session = Depends(get_db)):
+    student = get_student_by_id(s_id = 9, db=db)
+    if not student:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Student with id not exist")
+    return student
+
