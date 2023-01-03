@@ -14,7 +14,7 @@ router = APIRouter(tags=["subjects"])
 
 
 @router.post('/create_subject', response_model=SubjectBase, status_code=status.HTTP_201_CREATED)
-def create_student(subject: SubjectBase, db: Session = Depends(get_db)):
+def create_subject(subject: SubjectBase, db: Session = Depends(get_db)):
     subject = create_new_subject(subject=subject, db=db)
     return subject
 

@@ -4,8 +4,8 @@ from database.models.models import Subjects
 
 
 def create_new_subject(subject: SubjectBase, db: Session):
-    subject = Subjects(id=subject.sub_id,
-                       name=subject.sub_name,
+    subject = Subjects(sub_id=subject.sub_id,
+                       sub_name=subject.sub_name,
                        t_id=subject.t_id)
     db.add(subject)
     db.commit()

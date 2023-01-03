@@ -31,8 +31,11 @@ class CreateTeacher(UserBase):
 
 class SubjectBase(BaseModel):
     sub_id: int
-    sub_name: int
+    sub_name: str
     t_id: int
+
+    class Config:
+        orm_mode = True
 
 
 class AttendanceBase(BaseModel):
@@ -41,6 +44,9 @@ class AttendanceBase(BaseModel):
     sub_id: int
     date: date
     attendance: int
+
+    class Config:
+        orm_mode = True
 
 
 class Token(BaseModel):
