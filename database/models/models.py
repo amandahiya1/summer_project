@@ -31,5 +31,6 @@ class Attendance(Base):
     __tablename__ = "attendance"
     a_id = Column(Integer, primary_key=True, index=True)
     s_id = Column(Integer, ForeignKey('students.s_id', ondelete="CASCADE"))
+    sub_id = Column(Integer, ForeignKey('subjects.sub_id', ondelete="CASCADE"))
     date = Column(Date, nullable=False)
     attendance = Column(Integer, nullable=False)
