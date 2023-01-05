@@ -6,7 +6,7 @@ from database.schemas.schemas import StudentBase, CreateStudent
 
 from database.session.session import get_db
 
-from database.repository.students import create_new_student, list_students, get_student_by_id
+from database.repository.students import create_new_student, list_students, get_student_by_id, delete_student_by_id
 
 from database.models.models import Students
 
@@ -21,6 +21,7 @@ def create_student(student: CreateStudent, db: Session = Depends(get_db)):
     student = create_new_student(student=student, db=db)
     return student
 
+
 @router.get('/all_students', response_model=List[StudentBase])
 def get_all_students(db: Session = Depends(get_db)):
     result = list_students(db=db)
@@ -32,8 +33,17 @@ def get_all_students(db: Session = Depends(get_db)):
 
 @router.get('/student_by_id', response_model=StudentBase)
 def get_student(db: Session = Depends(get_db), current_user: Students = Depends(get_current_user)):
-    student = get_student_by_id(s_id = current_user.s_id, db=db)
+    student = get_student_by_id(s_id=current_user.s_id, db=db)
     if not student:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Student with id:{current_user.s_id} not exist")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Student with id:{current_user.s_id} "
+                                                                          f"not exist")
     return student
 
+
+@router.delete('/delete_student_by_id', status_code=status.HTTP_200_OK)
+def delete_student(db: Session = Depends(get_db), current_user: Students = Depends(get_current_user)):
+    deleted_user = delete_student_by_id(s_id=current_user.s_id, db=db)
+    if not deleted_user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"User with id:{current_user.s_id} not found.")
+    return {"msg": "User deleted successfully."}

@@ -4,10 +4,15 @@ from datetime import date
 
 class UserBase(BaseModel):
     name: str
-    email : EmailStr
+    email: EmailStr
+
 
 class TeacherBase(UserBase):
     t_id: int
+
+    class Config:
+        orm_mode = True
+
 
 class StudentBase(UserBase):
     s_id: int
@@ -15,19 +20,34 @@ class StudentBase(UserBase):
     class Config:
         orm_mode = True
 
+
 class CreateStudent(UserBase):
     password: str
 
+
+class CreateTeacher(UserBase):
+    password: str
+
+
 class SubjectBase(BaseModel):
     sub_id: int
-    sub_name: int
+    sub_name: str
     t_id: int
+
+    class Config:
+        orm_mode = True
+
 
 class AttendanceBase(BaseModel):
     a_id: int
-    s_id : int
+    s_id: int
+    sub_id: int
     date: date
     attendance: int
+
+    class Config:
+        orm_mode = True
+
 
 class Token(BaseModel):
     access_token: str
